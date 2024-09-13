@@ -79,9 +79,9 @@ def mainPage():
 def indexPage():
     return render_template("index.html")
 
-@app.route("/recommendations",methods=['POST','GET'])
+@app.route("/recommendations", methods=['POST', 'GET'])
 def recommendations():
-     if request.method == 'POST':
+    if request.method == 'POST':
         prod = request.form.get('prod')
         nbr = int(request.form.get('nbr'))
         content_based_rec = content_based_recommendations(train_data, prod, top_n=nbr)
@@ -94,13 +94,10 @@ def recommendations():
             random_product_image_urls = [random.choice(random_image_urls) for _ in range(len(trending_products))]
             print(content_based_rec)
             print(random_product_image_urls)
-
             price = [40, 50, 60, 70, 100, 122, 106, 50, 30, 50]
             return render_template('main.html', content_based_rec=content_based_rec, truncate=truncate,
                                    random_product_image_urls=random_product_image_urls,
                                    random_price=random.choice(price))
-
-
 
 if __name__=="__main__":
     app.run(debug=True)
